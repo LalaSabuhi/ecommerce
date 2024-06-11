@@ -1,10 +1,7 @@
 package com.informix.ecommerce.service;
 
-import com.informix.ecommerce.entity.CustomerPaymentMethod;
-import com.informix.ecommerce.entity.PaymentMethod;
 import com.informix.ecommerce.entity.Users;
-import com.informix.ecommerce.repository.CustomerPaymentMethodRepository;
-import com.informix.ecommerce.repository.PaymentMethodRepository;
+
 import com.informix.ecommerce.repository.UsersRepository;
 import com.informix.ecommerce.repository.UsersTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +13,10 @@ import java.util.Date;
 public class UsersService {
 
     private final UsersRepository usersRepository;
-    private final CustomerPaymentMethodRepository customerPaymentMethodRepository;
-    private final PaymentMethodRepository paymentMethodRepository;
 
     @Autowired
-    public UsersService(UsersRepository usersRepository,CustomerPaymentMethodRepository customerPaymentMethodRepository,PaymentMethodRepository paymentMethodRepository){
+    public UsersService(UsersRepository usersRepository){
         this.usersRepository=usersRepository;
-        this.customerPaymentMethodRepository=customerPaymentMethodRepository;
-        this.paymentMethodRepository= paymentMethodRepository;
     }
     public Users addNew(Users users){
         users.setActive(true);

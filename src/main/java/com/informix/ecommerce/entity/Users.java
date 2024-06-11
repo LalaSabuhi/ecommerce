@@ -30,19 +30,17 @@ public class Users {
     @JoinColumn(name = "userTypeId", referencedColumnName = "userTypeId")
     private UsersType userTypeId;
 
-    @OneToMany(targetEntity = CustomerPaymentMethod.class, mappedBy = "userAccount", cascade = CascadeType.ALL)
-    private List<CustomerPaymentMethod> customerPaymentMethods;
 
     public Users() {}
 
-    public Users(int userId, String email, String password, boolean isActive, Date registrationDate, UsersType userTypeId, List<CustomerPaymentMethod> customerPaymentMethods) {
+    public Users(int userId, String email, String password, boolean isActive, Date registrationDate, UsersType userTypeId) {
         this.userId = userId;
         this.email = email;
         this.password = password;
         this.isActive = isActive;
         this.registrationDate = registrationDate;
         this.userTypeId = userTypeId;
-        this.customerPaymentMethods = customerPaymentMethods;
+
     }
 
     public int getUserId() {
@@ -93,13 +91,6 @@ public class Users {
         this.userTypeId = userTypeId;
     }
 
-    public List<CustomerPaymentMethod> getCustomerPaymentMethods() {
-        return customerPaymentMethods;
-    }
-
-    public void setCustomerPaymentMethods(List<CustomerPaymentMethod> customerPaymentMethods) {
-        this.customerPaymentMethods = customerPaymentMethods;
-    }
 
     @Override
     public String toString() {
