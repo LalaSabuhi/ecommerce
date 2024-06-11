@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -29,16 +30,19 @@ public class Users {
     @JoinColumn(name = "userTypeId", referencedColumnName = "userTypeId")
     private UsersType userTypeId;
 
-    public Users() {
-    }
+    @OneToMany(targetEntity = CustomerPaymentMethod.class, mappedBy = "userAccount", cascade = CascadeType.ALL)
+    private List<CustomerPaymentMethod> customerPaymentMethods;
 
-    public Users(int userId, String email, String password, boolean isActive, Date registrationDate, UsersType userTypeId) {
+    public Users() {}
+
+    public Users(int userId, String email, String password, boolean isActive, Date registrationDate, UsersType userTypeId, List<CustomerPaymentMethod> customerPaymentMethods) {
         this.userId = userId;
         this.email = email;
         this.password = password;
         this.isActive = isActive;
         this.registrationDate = registrationDate;
         this.userTypeId = userTypeId;
+        this.customerPaymentMethods = customerPaymentMethods;
     }
 
     public int getUserId() {
@@ -87,6 +91,14 @@ public class Users {
 
     public void setUserTypeId(UsersType userTypeId) {
         this.userTypeId = userTypeId;
+    }
+
+    public List<CustomerPaymentMethod> getCustomerPaymentMethods() {
+        return customerPaymentMethods;
+    }
+
+    public void setCustomerPaymentMethods(List<CustomerPaymentMethod> customerPaymentMethods) {
+        this.customerPaymentMethods = customerPaymentMethods;
     }
 
     @Override
