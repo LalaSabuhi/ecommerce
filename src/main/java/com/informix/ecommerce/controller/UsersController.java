@@ -32,7 +32,7 @@ public class UsersController {
     }
     @PostMapping("/register/new")
     public String userRegistration(@Valid Users users){
-        System.out.println("users"+users);
+      //  System.out.println("users"+users);
 
         usersService.addNew(users);
         return "dashboard";
