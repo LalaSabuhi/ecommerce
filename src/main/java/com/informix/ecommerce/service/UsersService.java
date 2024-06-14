@@ -7,6 +7,12 @@ import com.informix.ecommerce.repository.CustomerProfileRepository;
 import com.informix.ecommerce.repository.SellerProfileRepository;
 import com.informix.ecommerce.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -15,25 +21,52 @@ import java.util.Date;
 public class UsersService {
 
     private final UsersRepository usersRepository;
-    private  final SellerProfileRepository sellerProfileRepository;
     private final CustomerProfileRepository customerProfileRepository;
+    private final SellerProfileRepository sellerProfileRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsersService(UsersRepository usersRepository,SellerProfileRepository sellerProfileRepository,CustomerProfileRepository customerProfileRepository){
-        this.usersRepository=usersRepository;
-        this.sellerProfileRepository=sellerProfileRepository;
-        this.customerProfileRepository=customerProfileRepository;
+    public UsersService(UsersRepository usersRepository, CustomerProfileRepository customerProfileRepository, SellerProfileRepository sellerProfileRepository, PasswordEncoder passwordEncoder) {
+        this.usersRepository = usersRepository;
+        this.customerProfileRepository = customerProfileRepository;
+        this.sellerProfileRepository = sellerProfileRepository;
+        this.passwordEncoder = passwordEncoder;
     }
-    public Users addNew(Users users){
+
+    public Users addNew(Users users) {
         users.setActive(true);
         users.setRegistrationDate(new Date(System.currentTimeMillis()));
-        Users savedUser =  usersRepository.save(users);
+        users.setPassword(passwordEncoder.encode(users.getPassword()));
+        Users savedUser = usersRepository.save(users);
         int userTypeId = users.getUserTypeId().getUserTypeId();
-        if(userTypeId == 1){
+
+        if (userTypeId == 1) {
             sellerProfileRepository.save(new SellerProfile(savedUser));
-        }else{
+        }
+        else {
             customerProfileRepository.save(new CustomerProfile(savedUser));
         }
+
         return savedUser;
+    }
+
+    public Object getCurrentUserProfile() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String username = authentication.getName();
+            Users users = usersRepository.findByEmail(username).orElseThrow(()-> new UsernameNotFoundException("Could not found " + "user"));
+            int userId = users.getUserId();
+            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Recruiter"))) {
+                SellerProfile recruiterProfile = sellerProfileRepository.findById(userId).orElse(new SellerProfile());
+                return recruiterProfile;
+            } else {
+                CustomerProfile jobSeekerProfile = customerProfileRepository.findById(userId).orElse(new CustomerProfile());
+                return jobSeekerProfile;
+            }
+        }
+
+        return null;
     }
 }
