@@ -21,9 +21,6 @@ public class CustomerProfile {
     private String city;
     private String state;
     private String country;
-    private String workAuthorization;
-    private String employmentType;
-    private String resume;
 
     @Column(nullable = true, length = 64)
     private String profilePhoto;
@@ -39,7 +36,7 @@ public class CustomerProfile {
         this.userId=users;
     }
 
-    public CustomerProfile(int userAccountId, Users userId, String firstName, String lastName, String city, String state, String country, String workAuthorization, String employmentType, String resume, String profilePhoto, List<CustomerPayment> customerPayments) {
+    public CustomerProfile(int userAccountId, Users userId, String firstName, String lastName, String city, String state, String country, String profilePhoto, List<CustomerPayment> customerPayments) {
         this.userAccountId = userAccountId;
         this.userId = userId;
         this.firstName = firstName;
@@ -47,9 +44,6 @@ public class CustomerProfile {
         this.city = city;
         this.state = state;
         this.country = country;
-        this.workAuthorization = workAuthorization;
-        this.employmentType = employmentType;
-        this.resume = resume;
         this.profilePhoto = profilePhoto;
         this.customerPayments = customerPayments;
     }
@@ -110,29 +104,6 @@ public class CustomerProfile {
         this.country = country;
     }
 
-    public String getWorkAuthorization() {
-        return workAuthorization;
-    }
-
-    public void setWorkAuthorization(String workAuthorization) {
-        this.workAuthorization = workAuthorization;
-    }
-
-    public String getEmploymentType() {
-        return employmentType;
-    }
-
-    public void setEmploymentType(String employmentType) {
-        this.employmentType = employmentType;
-    }
-
-    public String getResume() {
-        return resume;
-    }
-
-    public void setResume(String resume) {
-        this.resume = resume;
-    }
 
     public String getProfilePhoto() {
         return profilePhoto;
@@ -160,9 +131,6 @@ public class CustomerProfile {
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", country='" + country + '\'' +
-                ", workAuthorization='" + workAuthorization + '\'' +
-                ", employmentType='" + employmentType + '\'' +
-                ", resume='" + resume + '\'' +
                 ", profilePhoto='" + profilePhoto + '\'' +
                 ", customerPayments=" + customerPayments +
                 '}';
