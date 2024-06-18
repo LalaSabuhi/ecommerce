@@ -120,7 +120,11 @@ public class CustomerProfile {
     public void setCustomerPayments(List<CustomerPayment> customerPayments) {
         this.customerPayments = customerPayments;
     }
-
+    @Transient
+    public String getPhotosImagePath() {
+        if (profilePhoto == null) return null;
+        return "/photos/seller/" + userAccountId + "/" + profilePhoto;
+    }
     @Override
     public String toString() {
         return "CustomerProfile{" +

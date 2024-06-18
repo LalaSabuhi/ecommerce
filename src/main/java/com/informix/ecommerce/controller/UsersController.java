@@ -40,7 +40,7 @@ public class UsersController {
       //  System.out.println("users"+users);
 
         usersService.addNew(users);
-        return "dashboard";
+        return "redirect:/dashboard";
     }
     @GetMapping("/login")
     public String login() {
