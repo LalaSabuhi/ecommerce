@@ -58,13 +58,24 @@ public class UsersService {
             String username = authentication.getName();
             Users users = usersRepository.findByEmail(username).orElseThrow(()-> new UsernameNotFoundException("Could not found " + "user"));
             int userId = users.getUserId();
-            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Recruiter"))) {
-                SellerProfile recruiterProfile = sellerProfileRepository.findById(userId).orElse(new SellerProfile());
-                return recruiterProfile;
+            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Seller"))) {
+                SellerProfile sellerProfile = sellerProfileRepository.findById(userId).orElse(new SellerProfile());
+                return sellerProfile;
             } else {
-                CustomerProfile jobSeekerProfile = customerProfileRepository.findById(userId).orElse(new CustomerProfile());
-                return jobSeekerProfile;
+                CustomerProfile customerProfile = customerProfileRepository.findById(userId).orElse(new CustomerProfile());
+                return customerProfile;
             }
+        }
+
+        return null;
+    }
+    public Users getCurrentUser() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String username = authentication.getName();
+            Users user = usersRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Could not found " + "user"));
+            return user;
         }
 
         return null;
