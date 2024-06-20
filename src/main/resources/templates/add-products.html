@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="col-md-7 container myForm">
-        <form id="job-main-form" th:action="@{/dashboard/addNew}" th:object="${products}" method="post" class="job-add-form">
+        <form id="job-main-form" th:action="@{/dashboard/addNew}" th:object="${products}" method="post" enctype="multipart/form-data" class="job-add-form">
             <input hidden type="text" th:field="*{productId}" >
             <input hidden type="text" th:field="*{productLocationId.id}" >
             <input hidden type="text" th:field="*{productCompanyId.id}" >
@@ -76,8 +76,13 @@
                 </div>
             </div>
 
-            <label class="form-label" for="customFile">Default file input example</label>
-            <input type="file" class="form-control" id="customFile" />
+            <label class="heading_font font_sub_heading_color mt-2">Product Image</label>
+            <div class="row" >
+                <div class="col" >
+                    <input type="file" name="image" class="form-control" accept="image/png, image/jpeg" />
+                    <input type="text" name="productImage" th:field="*{productImage}" class="form-control" hidden />
+                </div>
+            </div>
             <div class="row mt-4" >
                 <div class="col d-flex justify-content-center">
                     <button type="submit" name="submit" class="btn btn-primary base_button px-4 py-2 mb-5">Save</button>

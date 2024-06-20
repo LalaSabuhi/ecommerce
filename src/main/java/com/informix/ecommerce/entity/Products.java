@@ -38,14 +38,13 @@ public class Products {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date postedDate;
     private String productTitle;
-    @OneToMany(targetEntity = ProductImages.class, cascade = CascadeType.ALL, mappedBy = "product")
-    private List<ProductImages> productImages = new ArrayList<>();
+    private String productImage;
 
 
     public Products() {
     }
 
-    public Products(Integer productId, Users postedById, ProductLocation productLocationId, ProductCompany productCompanyId, String productCategory, Boolean isActive, Boolean isSaved, String descriptionOfProduct, String price, Date postedDate, String productTitle, List<ProductImages> productImages) {
+    public Products(Integer productId, Users postedById, ProductLocation productLocationId, ProductCompany productCompanyId, String productCategory, Boolean isActive, Boolean isSaved, String descriptionOfProduct, String price, Date postedDate, String productTitle, String productImage) {
         this.productId = productId;
         this.postedById = postedById;
         this.productLocationId = productLocationId;
@@ -57,7 +56,7 @@ public class Products {
         this.price = price;
         this.postedDate = postedDate;
         this.productTitle = productTitle;
-        this.productImages = productImages;
+        this.productImage = productImage;
     }
 
     public String getProductType() {
@@ -156,12 +155,19 @@ public class Products {
         this.productCategory = productCategory;
     }
 
-    public List<ProductImages> getProductImages() {
-        return productImages;
+    public String getProductImage() {
+        return productImage;
     }
 
-    public void setProductImages(List<ProductImages> productImages) {
-        this.productImages = productImages;
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
+    }
+    @Transient
+    public String getPhotosImagePath(){
+        if(productImage == null ){
+            return null;
+        }
+        return  "photos/product/" + productId + "/" + productImage;
     }
 
     @Override
