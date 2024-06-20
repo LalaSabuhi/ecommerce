@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Products {
@@ -23,7 +25,7 @@ public class Products {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "productCompanyId", referencedColumnName = "Id")
     private ProductCompany productCompanyId;
-
+    private String productCategory;
     @Transient
     private Boolean isActive;
 
@@ -36,21 +38,34 @@ public class Products {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date postedDate;
     private String productTitle;
+    @OneToMany(targetEntity = ProductImages.class, cascade = CascadeType.ALL, mappedBy = "product")
+    private List<ProductImages> productImages = new ArrayList<>();
+
 
     public Products() {
     }
 
-    public Products(Integer productId, Users postedById, ProductLocation productLocationId, ProductCompany productCompanyId, Boolean isActive, Boolean isSaved, String descriptionOfProduct, String price, Date postedDate, String productTitle) {
+    public Products(Integer productId, Users postedById, ProductLocation productLocationId, ProductCompany productCompanyId, String productCategory, Boolean isActive, Boolean isSaved, String descriptionOfProduct, String price, Date postedDate, String productTitle, List<ProductImages> productImages) {
         this.productId = productId;
         this.postedById = postedById;
         this.productLocationId = productLocationId;
         this.productCompanyId = productCompanyId;
+        this.productCategory = productCategory;
         this.isActive = isActive;
         this.isSaved = isSaved;
         this.descriptionOfProduct = descriptionOfProduct;
         this.price = price;
         this.postedDate = postedDate;
         this.productTitle = productTitle;
+        this.productImages = productImages;
+    }
+
+    public String getProductType() {
+        return productCategory;
+    }
+
+    public void setProductType(String productCategory) {
+        this.productCategory = productCategory;
     }
 
     public Integer getProductId() {
@@ -133,6 +148,22 @@ public class Products {
         this.productTitle = productTitle;
     }
 
+    public String getProductCategory() {
+        return productCategory;
+    }
+
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
+    }
+
+    public List<ProductImages> getProductImages() {
+        return productImages;
+    }
+
+    public void setProductImages(List<ProductImages> productImages) {
+        this.productImages = productImages;
+    }
+
     @Override
     public String toString() {
         return "Products{" +
@@ -140,6 +171,7 @@ public class Products {
                 ", postedById=" + postedById +
                 ", productLocationId=" + productLocationId +
                 ", productCompanyId=" + productCompanyId +
+                ", productCategory='" + productCategory + '\'' +
                 ", isActive=" + isActive +
                 ", isSaved=" + isSaved +
                 ", descriptionOfProduct='" + descriptionOfProduct + '\'' +
