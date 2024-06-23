@@ -4,6 +4,7 @@ import com.informix.ecommerce.entity.SellerProfile;
 import com.informix.ecommerce.entity.Users;
 import com.informix.ecommerce.repository.UsersRepository;
 import com.informix.ecommerce.service.SellerProfileService;
+import com.informix.ecommerce.service.UsersService;
 import com.informix.ecommerce.util.FileUploadUtil;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,33 +26,53 @@ import java.util.Optional;
 @RequestMapping("/seller-profile")
 public class SellerProfileController {
     private final UsersRepository usersRepository;
+    private final UsersService usersService;
     private final SellerProfileService sellerProfileService;
 
-    public SellerProfileController(UsersRepository usersRepository, SellerProfileService sellerProfileService) {
+    public SellerProfileController(UsersRepository usersRepository, SellerProfileService sellerProfileService,UsersService usersService) {
         this.usersRepository = usersRepository;
         this.sellerProfileService = sellerProfileService;
+        this.usersService =usersService;
     }
 
     @GetMapping("/")
-    public String recruiterProfile(Model model) {
+    public String sellerProfile(Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUsername = authentication.getName();
             Users users = usersRepository.findByEmail(currentUsername).orElseThrow(() -> new UsernameNotFoundException("Could not " + "found user"));
-            Optional<SellerProfile> recruiterProfile = sellerProfileService.getOne(users.getUserId());
+            Optional<SellerProfile> sellerProfile = sellerProfileService.getOne(users.getUserId());
 
-            if (!recruiterProfile.isEmpty())
-                model.addAttribute("profile", recruiterProfile.get());
+            if (!sellerProfile.isEmpty())
+                model.addAttribute("profile", sellerProfile.get());
 
         }
+        Object currentUserProfile = usersService.getCurrentUserProfile();
+        Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(authentication1 instanceof AnonymousAuthenticationToken)) {
+            String currentUsername = authentication1.getName();
+            model.addAttribute("username", currentUsername);
+        }
+
+        model.addAttribute("user", currentUserProfile);
 
         return "seller_profile";
     }
 
     @PostMapping("/addNew")
     public String addNew(SellerProfile sellerProfile, @RequestParam("image") MultipartFile multipartFile, Model model) {
+        Object currentUserProfile = usersService.getCurrentUserProfile();
+        Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(authentication1 instanceof AnonymousAuthenticationToken)) {
+            String currentUsername = authentication1.getName();
+            model.addAttribute("username", currentUsername);
+        }
+
+        model.addAttribute("user", currentUserProfile);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {

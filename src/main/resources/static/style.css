@@ -1,12 +1,183 @@
-body
-{
-background:url(images/bg.jpg) no-repeat #fff center top;
-padding:0;
-font-family:Arial, Helvetica, sans-serif;
-font-size:11px;
-margin:0px auto auto auto;
-color:#000;
+
+    /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
 }
+
+/* Header Styles */
+header {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    font-weight: bold;
+}
+
+header .logo_com {
+    color: #ffc107;
+}
+
+header .navbar-nav .nav-link {
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+header .navbar-nav .nav-link:hover,
+header .navbar-nav .nav-link.active {
+    color: #ffc107;
+}
+
+header .navbar-toggler {
+    border: none;
+}
+
+header .navbar-toggler-icon {
+    color: #ffffff;
+}
+
+header .rounded-circle {
+    border: 2px solid #ffffff;
+}
+
+header .nav-item label {
+    color: #ffffff;
+}
+    .navbar {
+        background-color: #343a40;
+    }
+    .navbar .navbar-brand {
+        font-weight: bold;
+        color: #ffffff;
+    }
+    .navbar .navbar-nav .nav-link {
+        color: #ffffff;
+    }
+    .navbar .navbar-nav .nav-link.active {
+        color: #ffc107;
+    }
+    .navbar .navbar-nav .nav-link:hover {
+        color: #ffc107;
+    }
+    .navbar .navbar-toggler {
+        border: none;
+    }
+    .navbar .navbar-toggler-icon {
+        color: #ffffff;
+    }
+    .navbar .rounded-circle {
+        border: 2px solid #ffffff;
+    }
+    .navbar .nav-item label {
+        color: #ffffff;
+    }
+    .myBtn-light {
+        background-color: #ffc107;
+        border: none;
+        color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 25px;
+        transition: background-color 0.3s ease;
+    }
+    .myBtn-light:hover {
+        background-color: #e0a800;
+    }
+.myBtn-light {
+    background-color: #ffc107;
+    border: none;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.myBtn-light:hover {
+    background-color: #e0a800;
+}
+
+/* Form Styles */
+.myForm {
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 3rem;
+}
+
+.myForm .heading_font {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.myForm .font_sub_heading_color {
+    color: #6c757d;
+}
+
+.myForm .form-control {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.myForm .btn {
+    background-color: #007bff;
+    border: none;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+}
+
+.myForm .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Custom Background */
+.coffee_mug_background {
+    background-image: url('path_to_your_image.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coffee_mug_background .logo_left {
+    color: #ffffff;
+}
+
+.coffee_mug_background .logo_left .logo {
+    font-size: 2.5rem;
+}
+
+.coffee_mug_background .logo_left .logo_com {
+    color: #ffc107;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .coffee_mug_background {
+        height: auto;
+    }
+
+    .coffee_mug_background .logo_left {
+        text-align: center;
+    }
+
+    .myForm {
+        padding: 1rem;
+    }
+}
+
 p{
 padding:2px;
 margin:0px;
