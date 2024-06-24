@@ -15,7 +15,7 @@
 </head>
 <body>
 <header class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand ms-5" th:href="@{/dashboard/}">ecommerce<span class="logo_com" style="color: white">.com</span></a>
+    <a class="navbar-brand ms-5" th:href="@{/}">ecommerce<span class="logo_com" style="color: white">.com</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,13 +33,48 @@
             </li>
         </ul>
 
-        <img class="rounded-circle me-3" height="50px" width="50px" th:if="${user.photosImagePath!=null}" th:src="@{${user?.photosImagePath}}" />
+        <img class="rounded-circle me-3" height="50px" width="50px" th:if="${user.photosImagePath != null}" th:src="@{${user.photosImagePath}}" />
 
-        <label th:if="${user.firstName != null && user.lastName != null}" th:text="${user.firstName+' '+user.lastName}" class="nav-item nav-link px-2 me-3"></label>
+        <label th:if="${user.firstName != null && user.lastName != null}" th:text="${user.firstName} + ' ' + ${user.lastName}" class="nav-item nav-link px-2 me-3"></label>
         <label th:unless="${user.firstName != null && user.lastName != null}" th:text="${username}" class="nav-item nav-link px-2 me-3"></label>
 
         <button class="myBtn-light me-5" onclick="window.location.href='/logout'">Logout</button>
     </div>
 </header>
+
+<section class="section">
+    <div class="sidenav px-5">
+    </div>
+    <article>
+        <div class="box" sec:authorize="hasAuthority('Seller')">
+            <h1 class="primary-title">Seller Dashboard</h1>
+        </div>
+        <div class="box mt-3">
+            <label class="large-label px-3 mb-3" sec:authorize="hasAuthority('Customer')">Search Results</label>
+            <div th:each="productPost : ${productPost}">
+                <a th:href="@{/product-details-apply/{id}(id=${productPost.productPostId})}" style="text-decoration: none; color: black">
+                    <div onclick="window.location='/product-details-apply/{id}(id=${productPost.productPostId})'" class="product-row">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="product-title text-left">
+                                    [[${productPost.productTitle}]]
+                                    <span class="title-span" sec:authorize="hasAuthority('Seller')" th:text="'(' + ${productPost.totalCustomer} + ' Customer bought Applied)'">(xx customer bought)</span>
+                                    <span class="title-span" sec:authorize="hasAuthority('Customer')" th:if="${productPost.isActive}">(Applied)</span>
+                                    <span class="title-span" sec:authorize="hasAuthority('Customer')" th:if="${productPost.isSaved}">(Saved)</span>
+                                </label>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <label th:text="${productPost.productLocationId.city + ', ' + productPost.productLocationId.state}">City State</label>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <label th:text="${productPost.productCompanyId.name}">Seller Company Name</label>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </article>
+</section>
 </body>
 </html>

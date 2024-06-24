@@ -1,8 +1,6 @@
 package com.informix.ecommerce.controller;
 
-import com.informix.ecommerce.entity.ProductImages;
-import com.informix.ecommerce.entity.Products;
-import com.informix.ecommerce.entity.Users;
+import com.informix.ecommerce.entity.*;
 import com.informix.ecommerce.service.ProductsService;
 import com.informix.ecommerce.service.UsersService;
 import com.informix.ecommerce.util.FileUploadUtil;
@@ -10,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -44,6 +44,9 @@ public class ProductsController {
             if (!(authentication instanceof AnonymousAuthenticationToken)) {
                 String currentUsername = authentication.getName();
                 model.addAttribute("username", currentUsername);
+                if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("Seller"))){
+                    List<SellerProductsDto> sellerProducts = productsService.getSellerProducts(((SellerProfile) currentUserProfile).getUserAccountId());
+                }
             }
 
             model.addAttribute("user", currentUserProfile);
