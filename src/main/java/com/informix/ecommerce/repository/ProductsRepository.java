@@ -14,6 +14,7 @@ public interface ProductsRepository extends JpaRepository<Products,Integer> {
     @Query(value = "SELECT COUNT(s.user_id) as totalCustomer, " +
             "j.product_id as productPostId, " +
             "j.product_title as productTitle, " +
+            " j.product_image as productImage," +
             "l.id as locationId, " +
             "l.city, " +
             "l.state, " +
@@ -25,7 +26,7 @@ public interface ProductsRepository extends JpaRepository<Products,Integer> {
             "INNER JOIN product_company c ON j.product_company_id = c.id " +
             "LEFT JOIN product_apply s ON s.product = j.product_id " +
             "WHERE j.posted_by_id = :seller " +
-            "GROUP BY j.product_id, l.id, l.city, l.state, l.country, c.id, c.name",
+            "GROUP BY j.product_id,j.product_title,j.product_image, l.id, l.city, l.state, l.country, c.id, c.name",
             nativeQuery = true)
     List<ISellerProducts> getSellerProducts(@Param("seller") int seller);
 

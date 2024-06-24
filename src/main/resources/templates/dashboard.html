@@ -59,16 +59,11 @@
                                 <div class="col-md-4">
                                     <label class="job-title text-left">
                                         [[${productPost.productTitle}]]
+                                        <img  height="100px" width="100px" th:if="${productPost.productImage!=null}" th:src="@{${productPost?.productImage}}" />
                                         <span
                                                 class="title-span"
                                                 sec:authorize="hasAuthority('Seller')"
-                                                th:text="${productPost.productTitle}+' asdsad'"
-                                        >(xx candidates applied)</span
-                                        >
-                                        <span
-                                                class="title-span"
-                                                sec:authorize="hasAuthority('Seller')"
-                                                th:text="${productPost.totalCustomer}+' Customer bought'"
+                                                th:text="'('+ ${productPost.totalCustomer}+' Customer bought)'"
                                         >(xx candidates applied)</span
                                         >
                                         <span
@@ -100,5 +95,42 @@
         </div>
     </article>
 </section>
+<section class="section">
+    <div class="sidenav px-5">
+    </div>
+    <article>
+        <div class="box" sec:authorize="hasAuthority('Seller')">
+            <h1 class="primary-title">Seller Dashboard</h1>
+        </div>
+        <div class="container">
+            <div class="box mt-3">
+                <label class="large-label px-3 mb-3" sec:authorize="hasAuthority('Customer')">Search Results</label>
+                <div class="row" th:each="productPost : ${productPosts}">
+                    <div class="col-md-4">
+                        <div class="card mb-3" style="width: 18rem;">
+                            <img th:if="${productPost.productImage!=null}" th:src="@{${productPost.productImage}}" class="card-img-top" alt="Product Image">
+                            <div class="card-body">
+                                <h5 class="card-title">[[${productPost.productTitle}]]</h5>
+                                <p class="card-text">
+                                    <span sec:authorize="hasAuthority('Seller')" th:text="'('+ ${productPost.totalCustomer}+' Customer bought)'">(xx customers bought)</span>
+                                    <span sec:authorize="hasAuthority('Customer')" th:if="${productPost.isActive == true}">(Applied)</span>
+                                    <span sec:authorize="hasAuthority('Customer')" th:if="${productPost.isSaved == true}">(Saved)</span>
+                                </p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item" th:text="${productPost.productLocation.city + ', ' + productPost.productLocation.state}">City, State</li>
+                                <li class="list-group-item" th:text="${productPost.productCompany.name}">Company Name</li>
+                            </ul>
+                            <div class="card-body">
+                                <a th:href="@{/product-details-apply/{id}(id=${productPost.productPostId})}" class="card-link">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+
 </body>
 </html>

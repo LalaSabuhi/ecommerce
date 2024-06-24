@@ -3,9 +3,10 @@ package com.informix.ecommerce.entity;
 public interface ISellerProducts {
     Long getTotalCustomer();
 
-    Integer getProduct_post_id();
+    Integer getProductPostId();
+    String getProductImage();
 
-    String getProduct_title();
+    String getProductTitle();
 
     int getLocationId();
 
