@@ -49,30 +49,54 @@
         <div class="box" sec:authorize="hasAuthority('Seller')">
             <h1 class="primary-title">Seller Dashboard</h1>
         </div>
-        <div class="box mt-3">
-            <label class="large-label px-3 mb-3" sec:authorize="hasAuthority('Customer')">Search Results</label>
-            <div th:each="productPost : ${productPost}">
-                <a th:href="@{/product-details-apply/{id}(id=${productPost.productPostId})}" style="text-decoration: none; color: black">
-                    <div onclick="window.location='/product-details-apply/{id}(id=${productPost.productPostId})'" class="product-row">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label class="product-title text-left">
-                                    [[${productPost.productTitle}]]
-                                    <span class="title-span" sec:authorize="hasAuthority('Seller')" th:text="'(' + ${productPost.totalCustomer} + ' Customer bought Applied)'">(xx customer bought)</span>
-                                    <span class="title-span" sec:authorize="hasAuthority('Customer')" th:if="${productPost.isActive}">(Applied)</span>
-                                    <span class="title-span" sec:authorize="hasAuthority('Customer')" th:if="${productPost.isSaved}">(Saved)</span>
-                                </label>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <label th:text="${productPost.productLocationId.city + ', ' + productPost.productLocationId.state}">City State</label>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <label th:text="${productPost.productCompanyId.name}">Seller Company Name</label>
+        <div class="container">
+            <div class="box mt-3">
+                <label class="large-label px-3 mb-3" sec:authorize="hasAuthority('Customer')">Search Results</label>
+                <div th:each="productPost : ${productPosts}">
+                    <a th:href="@{/product-details-apply/{id}(id=${productPost.productPostId})}" style="text-decoration: none; color: black">
+                        <div onclick="window.location='/product-details-apply/{id}(id=${productPost.productPostId})'" class="product-row">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="job-title text-left">
+                                        [[${productPost.productTitle}]]
+                                        <span
+                                                class="title-span"
+                                                sec:authorize="hasAuthority('Seller')"
+                                                th:text="${productPost.productTitle}+' asdsad'"
+                                        >(xx candidates applied)</span
+                                        >
+                                        <span
+                                                class="title-span"
+                                                sec:authorize="hasAuthority('Seller')"
+                                                th:text="${productPost.totalCustomer}+' Customer bought'"
+                                        >(xx candidates applied)</span
+                                        >
+                                        <span
+                                                class="title-span"
+                                                sec:authorize="hasAuthority('Customer')"
+                                                th:if="${productPost.isActive == true}"
+                                        >(Applied)</span
+                                        >
+                                        <span
+                                                class="title-span"
+                                                sec:authorize="hasAuthority('Customer')"
+                                                th:if="${productPost.isSaved == true}"
+                                        >(Saved)</span
+                                        >
+                                    </label>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <label th:text="${productPost.productLocation.city + ', ' + productPost.productLocation.state}">City State</label>
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    <label th:text="${productPost.productCompany.name}">Seller Company Name</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
+
         </div>
     </article>
 </section>

@@ -46,6 +46,7 @@ public class ProductsController {
                 model.addAttribute("username", currentUsername);
                 if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("Seller"))){
                     List<SellerProductsDto> sellerProducts = productsService.getSellerProducts(((SellerProfile) currentUserProfile).getUserAccountId());
+                    model.addAttribute("productPosts", sellerProducts);
                 }
             }
 

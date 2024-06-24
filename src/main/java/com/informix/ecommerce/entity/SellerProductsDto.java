@@ -4,14 +4,14 @@ public class SellerProductsDto {
     private Long totalCustomer;
     private Integer productPostId;
     private String productTitle;
-    private ProductLocation productLocationId;
+    private ProductLocation productLocation;
     private ProductCompany productCompany;
 
-    public SellerProductsDto(Long totalCustomer, Integer productPostId, String productTitle, ProductLocation productLocationId, ProductCompany productCompany) {
+    public SellerProductsDto(Long totalCustomer, Integer productPostId, String productTitle, ProductLocation productLocation, ProductCompany productCompany) {
         this.totalCustomer = totalCustomer;
         this.productPostId = productPostId;
         this.productTitle = productTitle;
-        this.productLocationId = productLocationId;
+        this.productLocation = productLocation;
         this.productCompany = productCompany;
     }
 
@@ -39,12 +39,12 @@ public class SellerProductsDto {
         this.productTitle = productTitle;
     }
 
-    public ProductLocation getProductLocationId() {
-        return productLocationId;
+    public ProductLocation getProductLocation() {
+        return productLocation;
     }
 
-    public void setProductLocationId(ProductLocation productLocationId) {
-        this.productLocationId = productLocationId;
+    public void setProductLocation(ProductLocation productLocation) {
+        this.productLocation = productLocation;
     }
 
     public ProductCompany getProductCompany() {

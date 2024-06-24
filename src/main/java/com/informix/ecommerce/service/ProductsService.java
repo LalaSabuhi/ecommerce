@@ -18,9 +18,12 @@ public class ProductsService {
     public Products addNew(Products products) {
         return productsRepository.save(products);
     }
+
     public List<SellerProductsDto> getSellerProducts(int seller){
         List<ISellerProducts> sellerProductsDto = productsRepository.getSellerProducts(seller);
+
         List<SellerProductsDto> sellerProductsDtoList = new ArrayList<>();
+
         for( ISellerProducts sel : sellerProductsDto){
             ProductLocation loc = new ProductLocation(sel.getLocationId(),sel.getCity(),sel.getState(),sel.getCountry());
             ProductCompany comp = new ProductCompany(sel.getCompanyId(),sel.getName(), "");
@@ -28,4 +31,5 @@ public class ProductsService {
         }
         return sellerProductsDtoList;
     }
+
 }
