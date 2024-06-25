@@ -27,12 +27,16 @@ public class ProductsService {
         for( ISellerProducts sel : sellerProductsDto){
             ProductLocation loc = new ProductLocation(sel.getLocationId(),sel.getCity(),sel.getState(),sel.getCountry());
             ProductCompany comp = new ProductCompany(sel.getCompanyId(),sel.getName(), "");
-            sellerProductsDtoList.add(new SellerProductsDto(sel.getTotalCustomer(),sel.getProductPostId(),sel.getProductTitle(),getPhotosImagePath(sel),loc,comp));
+            sellerProductsDtoList.add(new SellerProductsDto(sel.getTotalCustomer(),sel.getProductPostId(),sel.getProductTitle(),sel.getProductPrice(),getPhotosImagePath(sel),loc,comp));
         }
         return sellerProductsDtoList;
     }
     public String getPhotosImagePath(ISellerProducts product) {
         if (product.getProductImage() == null) return null;
         return "/photos/product/" + product.getProductPostId() + "/" + product.getProductImage();
+    }
+
+    public Products getOne(int id) {
+        return productsRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
     }
 }

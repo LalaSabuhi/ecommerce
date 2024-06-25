@@ -178,6 +178,7 @@ public class Products {
                 ", productLocationId=" + productLocationId +
                 ", productCompanyId=" + productCompanyId +
                 ", productCategory='" + productCategory + '\'' +
+                ", productImage='" + productImage + '\'' +
                 ", isActive=" + isActive +
                 ", isSaved=" + isSaved +
                 ", descriptionOfProduct='" + descriptionOfProduct + '\'' +

@@ -6,6 +6,8 @@ public interface ISellerProducts {
     Integer getProductPostId();
     String getProductImage();
 
+    String getProductPrice();
+
     String getProductTitle();
 
     int getLocationId();

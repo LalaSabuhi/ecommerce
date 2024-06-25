@@ -14,6 +14,7 @@ public interface ProductsRepository extends JpaRepository<Products,Integer> {
     @Query(value = "SELECT COUNT(s.user_id) as totalCustomer, " +
             "j.product_id as productPostId, " +
             "j.product_title as productTitle, " +
+            "j.price as productPrice, " +
             " j.product_image as productImage," +
             "l.id as locationId, " +
             "l.city, " +

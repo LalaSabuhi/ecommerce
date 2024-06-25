@@ -6,17 +6,27 @@ public class SellerProductsDto {
     private Long totalCustomer;
     private Integer productPostId;
     private String productTitle;
+    private String productPrice;
     private String productImage;
     private ProductLocation productLocation;
     private ProductCompany productCompany;
 
-    public SellerProductsDto(Long totalCustomer, Integer productPostId, String productTitle, String productImage,ProductLocation productLocation, ProductCompany productCompany) {
+    public SellerProductsDto(Long totalCustomer, Integer productPostId, String productTitle,String productPrice, String productImage,ProductLocation productLocation, ProductCompany productCompany) {
         this.totalCustomer = totalCustomer;
         this.productPostId = productPostId;
+        this.productPrice = productPrice;
         this.productTitle = productTitle;
         this.productLocation = productLocation;
         this.productCompany = productCompany;
         this.productImage=productImage;
+    }
+
+    public String getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(String productPrice) {
+        this.productPrice = productPrice;
     }
 
     public String getProductImage() {
