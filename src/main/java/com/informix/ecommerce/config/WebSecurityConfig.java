@@ -27,7 +27,8 @@ public class WebSecurityConfig {
         this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
     }
 
-    private final String[] publicUrl = {"/",
+    private final String[] publicUrl = {
+            "/",
             "/global-search/**",
             "/register",
             "/register/**",

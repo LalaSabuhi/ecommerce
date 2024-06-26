@@ -123,7 +123,7 @@ public class CustomerProfile {
     @Transient
     public String getPhotosImagePath() {
         if (profilePhoto == null) return null;
-        return "/photos/seller/" + userAccountId + "/" + profilePhoto;
+        return "/photos/customer/" + userAccountId + "/" + profilePhoto;
     }
     @Override
     public String toString() {
@@ -137,6 +137,7 @@ public class CustomerProfile {
                 ", country='" + country + '\'' +
                 ", profilePhoto='" + profilePhoto + '\'' +
                 ", customerPayments=" + customerPayments +
+                ", customerPayments=" + profilePhoto +
                 '}';
     }
 }

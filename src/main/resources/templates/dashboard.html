@@ -55,7 +55,21 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarToggler">
+
         <ul class="navbar-nav m-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a sec:authorize="hasAuthority('Customer')" class="nav-link" th:href="@{/dashboard/}"
+                ><i class="fas fa-search"></i>Search for Products</a
+                >
+            </li>
+            <li class="nav-item ">
+                <a sec:authorize="hasAuthority('Customer')" class="nav-link" th:href="@{/saved-products/}">
+                    <i class="fa-solid fa-eye"></i>My Card</a>
+            </li>
+            <li class="nav-item ">
+                <a sec:authorize="hasAuthority('Customer')" class="nav-link" th:href="@{/customer-profile/}">
+                    <i class="fa-solid fa-pencil"></i>Edit Profile</a>
+            </li>
             <li class="nav-item">
                 <a sec:authorize="hasAuthority('Seller')" class="nav-link" th:href="@{/dashboard/add}"><i class="fa-solid fa-file-circle-plus"></i> Post New Products</a>
             </li>
