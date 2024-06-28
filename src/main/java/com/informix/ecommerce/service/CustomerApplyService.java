@@ -22,12 +22,13 @@ public class CustomerApplyService {
         return customerApplyRepository.findByUserId(userAccountId);
     }
 
-    public List<CustomerApply> getJobCandidates(Products products) {
+    public List<CustomerApply> getProductApplicants(Products products) {
         return customerApplyRepository.findByProduct(products);
     }
 
     public void addNew(CustomerApply customerApply) {
         customerApplyRepository.save(customerApply);
     }
+
 }
 

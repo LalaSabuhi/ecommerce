@@ -22,7 +22,7 @@ public class CustomerSaveService {
         return customerSaveRepository.findByUserId(userAccountId);
     }
 
-    public List<CustomerSave> getJobCandidates(Products products) {
+    public List<CustomerSave> getProductApplicants(Products products) {
         return customerSaveRepository.findByProduct(products);
     }
 

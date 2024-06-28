@@ -1,130 +1,142 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar Example</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        .navbar {
-            background-color: #343a40;
-        }
-        .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        .nav-link {
-            color: white !important;
-            margin-right: 15px;
-            font-size: 1.1rem;
-        }
-        .nav-link:hover {
-            color: #ff9900 !important;
-        }
-        .navbar-toggler {
-            border: none;
-        }
-        .navbar-toggler-icon {
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path stroke="rgba(255, 255, 255, 1)" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/></svg>');
-        }
-        .myBtn-light {
-            background-color: #ff9900;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            transition: background-color 0.3s ease;
-        }
-        .myBtn-light:hover {
-            background-color: #e68a00;
-        }
-        .logo_com {
-            font-size: 1.5rem;
-        }
-        .rounded-circle {
-            object-fit: cover;
-        }
-    </style>
+    <meta charset="UTF-8"/>
+    <title>Product Details</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
 </head>
+
 <body>
-<header th:fragment="header" class="navbar navbar-expand-lg navbar-dark" >
-    <a class="navbar-brand ms-5" th:href="@{/}">ecommerce<span class="logo_com" style="color: white">.com</span></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+<header class="navbar navbar-expand-lg navbar-dark">
+    <label class="mt-2 ms-5 font-weight-bold h5">
+        <a th:href="@{/dashboard/}">hotdevproducts</a>
+        <span class="logo_com font-weight-bold h5" style="color: white">.com</span>
+    </label>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarToggler">
-
         <ul class="navbar-nav m-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-                <a sec:authorize="hasAuthority('Customer')" class="nav-link" th:href="@{/dashboard/}"
-                ><i class="fas fa-search"></i>Search for Products</a
-                >
-            </li>
-            <li class="nav-item ">
-                <a sec:authorize="hasAuthority('Customer')" class="nav-link" th:href="@{/saved-products/}">
-                    <i class="fa-solid fa-eye"></i>My Card</a>
-            </li>
-            <li class="nav-item ">
-                <a sec:authorize="hasAuthority('Customer')" class="nav-link" th:href="@{/customer-profile/}">
-                    <i class="fa-solid fa-pencil"></i>Edit Profile</a>
+                <a sec:authorize="hasAuthority('Customer')" class="nav-link" th:href="@{/dashboard/}">
+                    <i class="fas fa-search"></i> Search for Products
+                </a>
             </li>
             <li class="nav-item">
-                <a sec:authorize="hasAuthority('Seller')" class="nav-link" th:href="@{/dashboard/add}"><i class="fa-solid fa-file-circle-plus"></i> Post New Products</a>
+                <a sec:authorize="hasAuthority('Customer')" class="nav-link" th:href="@{/saved-products/}">
+                    <i class="fa-solid fa-eye"></i> View Saved Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasAuthority('Customer')" class="nav-link" th:href="@{/customer-profile/}">
+                    <i class="fa-solid fa-pencil"></i> Edit Profile
+                </a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasAuthority('Seller')" class="nav-link" th:href="@{/dashboard/add}">
+                    <i class="fa-solid fa-file-circle-plus"></i> Post New Product
+                </a>
             </li>
             <li class="nav-item active">
-                <a sec:authorize="hasAuthority('Seller')" class="nav-link" th:href="@{/dashboard/}"><i class="fa-solid fa-eye"></i> View Your Products</a>
+                <a sec:authorize="hasAuthority('Seller')" class="nav-link" th:href="@{/dashboard/}">
+                    <i class="fa-solid fa-eye"></i> View Your Products
+                </a>
             </li>
             <li class="nav-item">
-                <a sec:authorize="hasAuthority('Seller')" class="nav-link" th:href="@{/seller-profile/}"><i class="fa-solid fa-pencil"></i> Edit Account</a>
+                <a sec:authorize="hasAuthority('Seller')" class="nav-link" th:href="@{/seller-profile/}">
+                    <i class="fa-solid fa-pencil"></i> Edit Account
+                </a>
             </li>
         </ul>
 
-        <img class="rounded-circle me-3" height="50px" width="50px" th:if="${user.photosImagePath!=null}" th:src="@{${user?.photosImagePath}}" alt="User Photo" />
+        <img class="rounded-circle me-3" height="50px" width="50x" th:if="${user.photosImagePath != null}"
+             th:src="@{${user?.photosImagePath}}"/>
 
-        <label th:if="${user.firstName != null && user.lastName != null}" th:text="${user.firstName+' '+user.lastName}" class="nav-item nav-link px-2 me-3"></label>
-        <label th:unless="${user.firstName != null && user.lastName != null}" th:text="${username}" class="nav-item nav-link px-2 me-3"></label>
+        <label th:if="${user.firstName != null && user.lastName != null}"
+               th:text="${user.firstName + ' ' + user.lastName}"
+               class="nav-item nav-link px-2 me-3">
+        </label>
+
+        <label th:unless="${user.firstName != null && user.lastName != null}" th:text="${username}"
+               class="nav-item nav-link px-2 me-3"></label>
 
         <button class="myBtn-light me-5" onclick="window.location.href='/logout'">Logout</button>
     </div>
 </header>
+
 <section class="section">
-    <div class="sidenav px-5">
-    </div>
-    <article>
-        <div class="box" sec:authorize="hasAuthority('Seller')">
-            <h1 class="primary-title">Seller Dashboard</h1>
-        </div>
-        <div class="container">
-            <div class="box mt-3">
-                <label class="large-label px-3 mb-3" sec:authorize="hasAuthority('Customer')">Search Results</label>
-                <div class="row">
-                    <div class="col-md-3" th:each="productPost : ${productPosts}">
-                        <div class="card mb-3" style="width: 100%;">
-                            <img style="height: 207px" th:if="${productPost.productImage!=null}" th:src="@{${productPost.productImage}}" class="card-img-top"   alt="Product Image">
-                            <div class="card-body">
-                                <h5 class="card-title">[[${productPost.productTitle}]]</h5>
-                                <p class="card-text">
-                                    <span sec:authorize="hasAuthority('Seller')" th:text="'('+ ${productPost.totalCustomer}+' Customer bought)'">(xx customers bought)</span>
-                                    <span sec:authorize="hasAuthority('Customer')" th:if="${productPost.isActive == true}">(Applied)</span>
-                                    <span sec:authorize="hasAuthority('Customer')" th:if="${productPost.isSaved == true}">(Saved)</span>
-                                </p>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item" th:text="${productPost.productPrice + '$ '}">Price</li>
-                                <li class="list-group-item" th:text="${productPost.productLocation.city + ', ' + productPost.productLocation.state}">City, State</li>
-                                <li class="list-group-item" th:text="${productPost.productCompany.name}">Company Name</li>
-                            </ul>
-                            <div class="card-body">
-                                <a th:href="@{/product-apply/{id}(id=${productPost.productPostId})}" class="card-link">View Details</a>
-                            </div>
-                        </div>
-                    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <h2 th:text="${productDetails.productName}">Product Name</h2>
+                <p th:text="${productDetails.description}">Product Description</p>
+                <p>Price: <span th:text="${productDetails.price}">Product Price</span></p>
+                <p>Category: <span th:text="${productDetails.category}">Product Category</span></p>
+            </div>
+            <div class="col-md-4">
+                <div sec:authorize="hasAuthority('Customer')">
+                    <form th:action="@{/product-details/apply/{id}(id=${productDetails.productId})}" method="post">
+                        <button type="submit" class="btn btn-primary"
+                                th:disabled="${alreadyApplied}">Apply
+                        </button>
+                    </form>
+                    <form th:action="@{/product-details/save/{id}(id=${productDetails.productId})}" method="post">
+                        <button type="submit" class="btn btn-secondary"
+                                th:disabled="${alreadySaved}">Save
+                        </button>
+                    </form>
+                </div>
+                <div sec:authorize="hasAuthority('Seller')">
+                    <h4>Applicants</h4>
+                    <ul>
+                        <li th:each="applicant : ${applyList}" th:text="${applicant.userId.firstName + ' ' + applicant.userId.lastName}">Applicant Name</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </article>
+    </div>
+
+    <!-- Search Section -->
+    <div class="container mt-5">
+        <h2>Search Products</h2>
+        <form th:action="@{/search}" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search for products" name="query">
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Search</button>
+        </form>
+    </div>
+
+    <!-- Search Results Section -->
+    <div class="container mt-5" th:if="${searchResults != null}">
+        <h2>Search Results</h2>
+        <div th:each="product : ${searchResults}">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${product.productName}">Product Name</h5>
+                    <p class="card-text" th:text="${product.description}">Product Description</p>
+                    <a th:href="@{/product-details/{id}(id=${product.productId})}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+
 </body>
 </html>
