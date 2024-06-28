@@ -2,12 +2,14 @@ package com.informix.ecommerce.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 
 @Entity
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = {"userId", "product"})
 })
-public class CustomerSave {
+public class CustomerSave implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -17,7 +19,7 @@ public class CustomerSave {
     private CustomerProfile userId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "job", referencedColumnName = "jobPostId")
+    @JoinColumn(name = "product", referencedColumnName = "productId")
     private Products product;
     public CustomerSave(){
 
