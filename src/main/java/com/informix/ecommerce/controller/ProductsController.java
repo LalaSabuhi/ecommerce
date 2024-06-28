@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -60,6 +62,70 @@ public class ProductsController {
             model.addAttribute("user", usersService.getCurrentUserProfile());
         return "add-products";
     }
+    @GetMapping("/dashboard/")
+    public String searchProduct(Model model,
+                                @RequestParam(value = "computer", required = false) String computer,
+                                @RequestParam(value = "phone", required = false) String phone,
+                                @RequestParam(value = "location", required = false) String location,
+                                @RequestParam(value = "laptop", required = false) String laptop,
+                                @RequestParam(value = "camera", required = false) String camera,
+                                @RequestParam(value = "today", required = false) boolean today,
+                                @RequestParam(value = "days7", required = false) boolean days7,
+                                @RequestParam(value = "days30", required = false) boolean days30) {
+
+        model.addAttribute("computer", computer);
+        model.addAttribute("phone", phone);
+        model.addAttribute("location", location);
+        model.addAttribute("laptop", laptop);
+        model.addAttribute("camera", camera);
+
+        model.addAttribute("today", today);
+        model.addAttribute("days7", days7);
+        model.addAttribute("days30", days30);
+
+        LocalDate searchDate = null;
+        boolean dateSearchFlag = true;
+
+        if (days30) {
+            searchDate = LocalDate.now().minusDays(30);
+        } else if (days7) {
+            searchDate = LocalDate.now().minusDays(7);
+        } else if (today) {
+            searchDate = LocalDate.now();
+        } else {
+            dateSearchFlag = false;
+        }
+
+        List<Products> products = null;
+
+        if (!dateSearchFlag && !StringUtils.hasText(computer) && !StringUtils.hasText(phone) &&
+                !StringUtils.hasText(location) && !StringUtils.hasText(laptop) &&
+                !StringUtils.hasText(camera)) {
+            products = productsService.getAll();
+        } else {
+            products = productsService.search(computer, phone, location, laptop, camera, searchDate);
+        }
+
+        model.addAttribute("products", products);
+
+        Object currentUserProfile = usersService.getCurrentUserProfile();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUsername = authentication.getName();
+            model.addAttribute("username", currentUsername);
+            if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("Seller"))) {
+                List<SellerProductsDto> sellerProducts = productsService.getSellerProducts(((SellerProfile) currentUserProfile).getUserAccountId());
+                model.addAttribute("productPosts", sellerProducts);
+            }
+        }
+
+        model.addAttribute("user", currentUserProfile);
+
+        return "dashboard";
+    }
+
+
 
     @PostMapping("/dashboard/addNew")
     public String addNew(@ModelAttribute("products") Products products,
